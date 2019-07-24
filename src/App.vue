@@ -1,0 +1,66 @@
+<template>
+  <div id="app">
+    <div class="wrapper">
+      <RangeSlider min="0" max="30" raising v-model="slider" />
+    </div>
+    {{ slider }}
+  </div>
+</template>
+
+<script>
+import RangeSlider from "./components/RangeSlider.vue";
+
+export default {
+  name: "app",
+  components: {
+    RangeSlider
+  },
+  data() {
+    return {
+      slider: "0",
+      sliderValues: [
+        {
+          label: "Not at all",
+          value: "a"
+        },
+        {
+          label: "A tiny bit",
+          value: "b"
+        },
+        {
+          label: "Its ok",
+          value: "c"
+        },
+        {
+          label: "Its very good",
+          value: "d"
+        },
+        {
+          label: "Its AMAZING!",
+          value: "e"
+        }
+      ]
+    };
+  }
+};
+</script>
+
+<style>
+body {
+  margin: 0;
+}
+
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  background: #fff;
+  padding: 0 50px;
+  height: 100vh;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

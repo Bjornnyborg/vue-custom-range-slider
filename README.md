@@ -21,59 +21,78 @@ npm install --save vue-custom-range-slider
 yarn add vue-custom-range-slider
 ```
 
-## Usage
+## Usage examples
 
-### Basic Usage
-
-Import the vue-custom-rangeslider component, and start using it.
+### Usage like a native range slider
 
 ```html
 <template>
   <div>
-    <slider
-      :values="sliderValues"
-      min="0"
-      max="100"
-      raising
-      v-model="slider"
-    ></slider>
-    <!-- remember to set v-model -->
+    <custom-slider min="10" max="50" step="2" raising v-model="slider" />
     {{ slider }}
   </div>
 </template>
 
 <script>
-  import Slider from "vue-custom-range-slider";
+  import CustomSlider from "vue-custom-range-slider";
   // import the styling, css or scss
   import "vue-custom-range-slider/dist/vue-custom-range-slider.css";
 
   export default {
     components: {
-      Slider
+      CustomSlider
     },
     data() {
       return {
-        slider: "0",
+        slider: "12"
+      };
+    }
+  };
+</script>
+```
+
+### Usage with custom values
+
+```html
+<template>
+  <div>
+    <custom-slider :values="sliderValues" raising v-model="slider" />
+    {{ slider }}
+  </div>
+</template>
+
+<script>
+  import CustomSlider from "vue-custom-range-slider";
+  // import the styling, css or scss
+  import "vue-custom-range-slider/dist/vue-custom-range-slider.css";
+
+  export default {
+    components: {
+      CustomSlider
+    },
+    data() {
+      return {
+        slider: "a",
         sliderValues: [
           {
             label: "Not at all",
-            value: "0"
+            value: "a"
           },
           {
             label: "A tiny bit",
-            value: "1"
+            value: "b"
           },
           {
             label: "Its ok",
-            value: "2"
+            value: "c"
           },
           {
             label: "Its very good",
-            value: "3"
+            value: "d"
           },
           {
             label: "Its AMAZING!",
-            value: "4"
+            value: "e"
           }
         ]
       };
@@ -82,15 +101,25 @@ Import the vue-custom-rangeslider component, and start using it.
 </script>
 ```
 
-Properties:
+## Properties:
 
-- `v-model` - name of the slider input.
-- `min` - minimum value.
-- `max` - maximum value.
-- `values` - use a custom value object (overrides min/max).
-- `raising` - set if you want the slider shape to be "raising" (like: ◁).
+All properties are optional
+| Property | Description | Type | Default |
+|-----------|-------------------------------------------------------------------------------|-----------|---------|
+| values | Pass an array of custom values, with corresponding labels (overrides min/max) | `array` | `[]` |
+| min | Sets the minimum value of the slider | `string` | `'0'` |
+| max | Sets the maximum value of the slider | `string` | `'100'` |
+| step | Sets the stepping interval | `string` | `'1'` |
+| hideLabel | Set, if you want to hide the label above the slider | `boolean` | `false` |
+| raising | Set if you want a "raising" shape, like: ◁ | `boolean` | `false` |
 
-### Overwrite styling variables
+## Events
+
+| Name   | Description                       | Type     |
+| ------ | --------------------------------- | -------- |
+| change | Emits the current value on change | `string` |
+
+## Styling
 
 You can easily modify the look of the slider, by overriding the variables in the scss file.
 
@@ -99,11 +128,21 @@ You can easily modify the look of the slider, by overriding the variables in the
 $label-color: red;
 
 // import the styling,
-@import "vue-custom-range-slider/dist/vue-range-slider.scss";
+@import "vue-custom-range-slider/dist/vue-custom-range-slider.scss";
 
 ```
 
-All variables can be found in [the scss file](dist/vue-range-slider.scss)
+All variables can be found in [the scss file](dist/vue-custom-range-slider.scss)
+
+## Roadmap
+
+- Disabled properties
+- Name attributes for form handling
+- Better styling options
+
+## Contribution
+
+If you have suggestions for improvements, dont hesitate to make an issue or pull request. :)
 
 ## License
 

@@ -1,23 +1,23 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <RangeSlider min="0" max="30" raising v-model="slider" />
+      <custom-slider min="10" max="50" step="1" :values="sliderValues" raising v-model="slider" />
     </div>
     {{ slider }}
   </div>
 </template>
 
 <script>
-import RangeSlider from "./components/RangeSlider.vue";
+import CustomSlider from "./components/CustomRangeSlider.vue";
 
 export default {
   name: "app",
   components: {
-    RangeSlider
+    CustomSlider
   },
   data() {
     return {
-      slider: "0",
+      slider: "a",
       sliderValues: [
         {
           label: "Not at all",

@@ -1,11 +1,17 @@
 {
   "name": "vue-custom-range-slider",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "license": "MIT",
+  "homepage": "https://github.com/Bjornnyborg/vue-custom-range-slider",
+  "bugs": "https://github.com/Bjornnyborg/vue-custom-range-slider/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bjornnyborg/vue-custom-range-slider.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-slider": "vue-cli-service build --target lib --name vue-custom-range-slider ./src/components/RangeSlider.vue && copyfiles --flat public/vue-range-slider.scss dist",
+    "build-slider": "vue-cli-service build --target lib --name vue-custom-range-slider ./src/components/CustomRangeSlider.vue && copyfiles --flat public/vue-custom-range-slider.scss dist",
     "lint": "vue-cli-service lint"
   },
   "main": "dist/vue-custom-range-slider.common.js",

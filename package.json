@@ -1,6 +1,15 @@
 {
   "name": "vue-custom-range-slider",
-  "version": "0.2.0",
+  "version": "0.2.1",
+  "author": "bjornnyborg",
+  "description": "Slider component for vue, with support for custom values",
+  "keywords": [
+    "range",
+    "slider",
+    "component",
+    "custom values",
+    "Vue"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/Bjornnyborg/vue-custom-range-slider",
   "bugs": "https://github.com/Bjornnyborg/vue-custom-range-slider/issues",

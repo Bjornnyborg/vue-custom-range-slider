@@ -107,42 +107,67 @@ export default {
       return `${position}px`;
     }
   },
-  created() {
-    // Set local values, depending on use of custom or default
-    if (this.values.length) {
-      this.sliderValues = this.values;
-      this.sliderMin = "1";
-      this.sliderMax = this.sliderValues.length;
-
-      // Find the corresponding custom value, and set the local sliderValue
-      let index = 0;
-      this.values.map((item, i) => {
-        if (item.value === this.value) {
-          index = i;
-        }
-        return true;
-      });
-      this.sliderValue = index + 1;
-    } else {
-      // In case of using default slider methods
-      this.sliderMin = this.min;
-      this.sliderMax = this.max;
-      this.sliderValue = this.value;
-    }
-  },
   mounted() {
+    this.changeValues();
     this.$nextTick(() => {
-      this.sliderWidth = this.$refs.slider.clientWidth;
+      this.resizeHandler();
     });
   },
   methods: {
+    changeValues() {
+      // Set local values, depending on use of custom or default
+      if (this.values.length) {
+        this.sliderValues = this.values;
+        this.sliderMin = "1";
+        this.sliderMax = this.sliderValues.length;
+
+        // Find the corresponding custom value, and set the local sliderValue
+        let index = 0;
+        this.values.map((item, i) => {
+          if (item.value === this.value) {
+            index = i;
+          }
+          return true;
+        });
+        this.sliderValue = index + 1;
+      } else {
+        // In case of using default slider methods
+        this.sliderMin = this.min;
+        this.sliderMax = this.max;
+        this.sliderValue = this.value;
+      }
+      this.update();
+    },
     update() {
       this.$emit("input", this.sliderOutputValue);
     },
     change() {
       this.$emit("change", this.sliderOutputValue);
+    },
+    resizeHandler() {
+      this.sliderWidth = this.$refs.slider.clientWidth;
     }
-  }
+  },
+  created() {
+    window.addEventListener("resize", this.resizeHandler);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeHandler);
+  },
+  watch: {
+    values: {
+      immediate: true, 
+      handler () {
+        this.changeValues();
+      }
+    },
+    value: {
+      immediate: true, 
+      handler () {
+        this.changeValues();
+      }
+    }
+  },
 };
 </script>
 

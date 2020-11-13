@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <div class="wrapper">
+    <div class="wrapper" v-if="sliderValues && sliderValues.length">
       <custom-slider min="10" max="50" step="1" :values="sliderValues" raising v-model="slider" />
     </div>
     {{ slider }}
+
+    <button @click="changeValue()">Change value to 2nd option</button>
+
+    <button @click="changeOptions()">Change options</button>
   </div>
 </template>
 
@@ -17,8 +21,10 @@ export default {
   },
   data() {
     return {
+      changed: false,
       slider: "a",
-      sliderValues: [
+      sliderValues: null,
+      sliderValues1: [
         {
           label: "Not at all",
           value: "a"
@@ -39,8 +45,34 @@ export default {
           label: "Its AMAZING!",
           value: "e"
         }
+      ],
+      sliderValues2: [
+        {
+          label: "Something else",
+          value: "1"
+        },
+        {
+          label: "Something else else",
+          value: "2"
+        },
+        {
+          label: "Comp",
+          value: "3"
+        }
       ]
     };
+  },
+  mounted() {
+    this.sliderValues = this.sliderValues1;
+  },
+  methods: {
+    changeOptions() {
+      this.sliderValues = this.changed ? this.sliderValues1 : this.sliderValues2;
+      this.changed = !this.changed;
+    },
+    changeValue() {
+      this.slider = this.sliderValues[1].value;
+    }
   }
 };
 </script>

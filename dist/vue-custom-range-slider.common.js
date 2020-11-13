@@ -1079,12 +1079,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fc17c0b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CustomRangeSlider.vue?vue&type=template&id=2395a05c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fc17c0b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CustomRangeSlider.vue?vue&type=template&id=5553b729&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"slider"},[_c('div',{staticClass:"slider__wrapper"},[(!_vm.hideLabel)?_c('div',{staticClass:"slider__label",style:({ left: _vm.position })},[_vm._v(_vm._s(_vm.sliderLabel))]):_vm._e(),_c('div',{staticClass:"slider__track",class:{'slider__track--rectangular': !_vm.raising}},[(_vm.raising)?_c('div',{staticClass:"slider__track-top",style:({ 'border-left-width': _vm.sliderWidth + 'px' })}):_vm._e(),(_vm.raising)?_c('div',{staticClass:"slider__track-bottom",style:({ 'border-right-width': _vm.sliderWidth + 'px' })}):_vm._e()]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.sliderValue),expression:"sliderValue"}],ref:"slider",staticClass:"slider__input",attrs:{"max":_vm.sliderMax,"type":"range","min":_vm.sliderMin,"step":_vm.step},domProps:{"value":(_vm.sliderValue)},on:{"input":_vm.update,"change":_vm.change,"__r":function($event){_vm.sliderValue=$event.target.value}}})])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CustomRangeSlider.vue?vue&type=template&id=2395a05c&
+// CONCATENATED MODULE: ./src/components/CustomRangeSlider.vue?vue&type=template&id=5553b729&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
 var web_dom_iterable = __webpack_require__("ac6a");
@@ -1196,44 +1196,70 @@ var es6_array_iterator = __webpack_require__("cadf");
       return "".concat(position, "px");
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
-    // Set local values, depending on use of custom or default
-    if (this.values.length) {
-      this.sliderValues = this.values;
-      this.sliderMin = "1";
-      this.sliderMax = this.sliderValues.length; // Find the corresponding custom value, and set the local sliderValue
-
-      var index = 0;
-      this.values.map(function (item, i) {
-        if (item.value === _this.value) {
-          index = i;
-        }
-
-        return true;
-      });
-      this.sliderValue = index + 1;
-    } else {
-      // In case of using default slider methods
-      this.sliderMin = this.min;
-      this.sliderMax = this.max;
-      this.sliderValue = this.value;
-    }
-  },
-  mounted: function mounted() {
-    var _this2 = this;
-
+    this.changeValues();
     this.$nextTick(function () {
-      _this2.sliderWidth = _this2.$refs.slider.clientWidth;
+      _this.resizeHandler();
     });
   },
   methods: {
+    changeValues: function changeValues() {
+      var _this2 = this;
+
+      // Set local values, depending on use of custom or default
+      if (this.values.length) {
+        this.sliderValues = this.values;
+        this.sliderMin = "1";
+        this.sliderMax = this.sliderValues.length; // Find the corresponding custom value, and set the local sliderValue
+
+        var index = 0;
+        this.values.map(function (item, i) {
+          if (item.value === _this2.value) {
+            index = i;
+          }
+
+          return true;
+        });
+        this.sliderValue = index + 1;
+      } else {
+        // In case of using default slider methods
+        this.sliderMin = this.min;
+        this.sliderMax = this.max;
+        this.sliderValue = this.value;
+      }
+
+      this.update();
+    },
     update: function update() {
       this.$emit("input", this.sliderOutputValue);
     },
     change: function change() {
       this.$emit("change", this.sliderOutputValue);
+    },
+    resizeHandler: function resizeHandler() {
+      this.sliderWidth = this.$refs.slider.clientWidth;
+    }
+  },
+  created: function created() {
+    window.addEventListener("resize", this.resizeHandler);
+  },
+  destroyed: function destroyed() {
+    window.removeEventListener("resize", this.resizeHandler);
+  },
+  watch: {
+    values: {
+      immediate: true,
+      handler: function handler() {
+        this.changeValues();
+      }
+    },
+    value: {
+      immediate: true,
+      handler: function handler() {
+        this.changeValues();
+      }
     }
   }
 });

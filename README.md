@@ -5,7 +5,7 @@ The component is based on use with v-model, the value is always a string, for su
 
 ## Demo
 
-See the slider in action, in this [codesandbox](https://codesandbox.io/embed/vue-template-glwlb)
+See the slider in action, in this [codesandbox](https://codesandbox.io/embed/vue-template-forked-n3gce)
 
 ## Installation
 

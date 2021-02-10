@@ -24,6 +24,7 @@
         :step="step"
         @input="update"
         @change="change"
+        @click="click"
       />
     </div>
   </div>
@@ -143,6 +144,12 @@ export default {
     },
     change() {
       this.$emit("change", this.sliderOutputValue);
+    },
+    click(event) {
+      if (this.sliderValue == undefined) {
+        this.sliderValue = event.target.value;
+        this.$emit("input", this.sliderOutputValue);
+      }
     },
     resizeHandler() {
       this.sliderWidth = this.$refs.slider.clientWidth;
